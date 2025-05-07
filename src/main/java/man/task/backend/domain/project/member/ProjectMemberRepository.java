@@ -1,9 +1,7 @@
-package man.task.backend.repositories;
+package man.task.backend.domain.project.member;
 
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import man.task.backend.entities.ProjectMember;
 
 public interface ProjectMemberRepository extends JpaRepository<ProjectMember, UUID> {}

@@ -1,14 +1,17 @@
-package man.task.backend.entities;
+package man.task.backend.domain.project.member;
 
 import java.util.*;
 
 import jakarta.persistence.*;
 import lombok.*;
+import man.task.backend.domain.project.Project;
+import man.task.backend.domain.user.User;
 
 @Entity
 @Table(name = "project_members")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class ProjectMember {
   @Id

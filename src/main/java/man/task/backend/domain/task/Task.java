@@ -1,15 +1,18 @@
-package man.task.backend.entities;
+package man.task.backend.domain.task;
 
 import java.time.*;
 import java.util.*;
 
 import jakarta.persistence.*;
 import lombok.*;
+import man.task.backend.domain.project.Project;
+import man.task.backend.domain.user.User;
 
 @Entity
 @Table(name = "tasks")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Task {
   @Id
@@ -35,6 +38,7 @@ public class Task {
   @JoinColumn(name = "project_id")
   private Project project;
 
+  @Column(insertable = false)
   private LocalDateTime createdAt;
 
   public enum Status {
