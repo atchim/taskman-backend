@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import man.task.backend.domain.user.User;
 import man.task.backend.domain.user.UserRepository;
@@ -26,7 +27,7 @@ public class AuthController {
   private final TokenService tokenService;
 
   @PostMapping("sign-in")
-  public ResponseEntity signIn(@RequestBody SignInRequestDTO body) {
+  public ResponseEntity<?> signIn(@Valid @RequestBody SignInRequestDTO body) {
     User user = repository
       .findByEmail(body.email())
       .orElseThrow(() -> new RuntimeException("User not found"));
@@ -40,7 +41,7 @@ public class AuthController {
   }
 
   @PostMapping("sign-up")
-  public ResponseEntity signUp(@RequestBody SignUpRequestDTO body) {
+  public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequestDTO body) {
     Optional<User> mayUser = repository.findByEmail(body.email());
 
     if (mayUser.isEmpty()) {

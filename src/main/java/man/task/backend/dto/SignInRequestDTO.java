@@ -1,3 +1,8 @@
 package man.task.backend.dto;
 
-public record SignInRequestDTO (String email, String password) {}
+import jakarta.validation.constraints.*;
+
+public record SignInRequestDTO(
+  @Email @NotNull String email,
+  @NotNull String password
+) {}
