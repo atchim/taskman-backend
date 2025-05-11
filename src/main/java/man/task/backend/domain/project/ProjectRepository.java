@@ -1,7 +1,11 @@
 package man.task.backend.domain.project;
 
-import java.util.UUID;
+import java.util.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProjectRepository extends JpaRepository<Project, UUID> {}
+import man.task.backend.domain.user.User;
+
+public interface ProjectRepository extends JpaRepository<Project, UUID> {
+  List<Project> findByUser(User user);
+}
