@@ -24,7 +24,7 @@ public class Task {
   @Column(nullable = true)
   private String description;
 
-  @Convert(converter = StatusConverter.class)
+  @Enumerated(EnumType.STRING)
   private Status status;
 
   @Column(nullable = true)
@@ -41,40 +41,5 @@ public class Task {
   @Column(insertable = false)
   private LocalDateTime createdAt;
 
-  public enum Status {
-    PENDING("pending"),
-    IN_PROGRESS("in-progress"),
-    DONE("done");
-
-    private String code;
-
-    Status(String code) {
-      this.code = code;
-    }
-
-    public String getCode() {
-      return code;
-    }
-
-    public static Status fromCode(String code) {
-      return Arrays
-        .stream(values())
-        .filter(s -> s.code.equals(code))
-        .findFirst()
-        .orElseThrow(IllegalArgumentException::new);
-    }
-  }
-
-  @Converter
-  public static class StatusConverter implements AttributeConverter<Status, String> {
-    @Override
-    public String convertToDatabaseColumn(Status status) {
-      return status.getCode();
-    }
-
-    @Override
-    public Status convertToEntityAttribute(String code) {
-      return Status.fromCode(code);
-    }
-  }
+  public enum Status { PENDING, IN_PROGRESS, DONE; }
 }

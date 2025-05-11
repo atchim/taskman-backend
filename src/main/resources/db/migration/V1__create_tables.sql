@@ -14,20 +14,22 @@ CREATE TABLE projects (
   created_at timestamp NOT NULL DEFAULT now()
 );
 
-CREATE TYPE statuses AS ENUM('pending', 'in-progress', 'done');
+CREATE TYPE statuses AS ENUM('PENDING', 'IN_PROGRESS', 'DONE');
+CREATE CAST (varchar AS statuses) WITH INOUT AS IMPLICIT;
 
 CREATE TABLE tasks (
 	id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
 	title varchar(255) NOT NULL,
 	description text,
-	status statuses NOT NULL DEFAULT 'pending',
+	status statuses NOT NULL DEFAULT 'PENDING',
 	due_date date,
 	asignee_id uuid REFERENCES users(id) ON DELETE CASCADE,
 	project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
   created_at timestamp NOT NULL DEFAULT now()
 );
 
-CREATE TYPE roles AS ENUM('owner', 'collaborator');
+CREATE TYPE roles AS ENUM('OWNER', 'COLLABORATOR');
+CREATE CAST (varchar AS roles) WITH INOUT AS IMPLICIT;
 
 CREATE TABLE project_members (
 	id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

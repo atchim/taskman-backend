@@ -26,42 +26,8 @@ public class ProjectMember {
   @JoinColumn(name = "user_id")
   private User user;
 
-  @Convert(converter = RoleConverter.class)
+  @Enumerated(EnumType.STRING)
   private Role role;
 
-  public enum Role {
-    OWNER("owner"),
-    COLLABORATOR("collaborator");
-
-    private String code;
-
-    Role(String code) {
-      this.code = code;
-    }
-
-    public String getCode() {
-      return code;
-    }
-
-    public static Role fromCode(String code) {
-      return Arrays
-        .stream(values())
-        .filter(s -> s.code.equals(code))
-        .findFirst()
-        .orElseThrow(IllegalArgumentException::new);
-    }
-  }
-
-  @Converter
-  public static class RoleConverter implements AttributeConverter<Role, String> {
-    @Override
-    public String convertToDatabaseColumn(Role role) {
-      return role.getCode();
-    }
-
-    @Override
-    public Role convertToEntityAttribute(String code) {
-      return Role.fromCode(code);
-    }
-  }
+  public enum Role { OWNER, COLLABORATOR; }
 }
